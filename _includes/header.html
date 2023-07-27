@@ -10,7 +10,7 @@
 
     <div class='collapse navbar-collapse' id="wax-header-navbar">
       <ul class='nav navbar-nav ml-auto justify-content-end'>
-        {% for item in site.menu %}
+        {% for item in site.data.theme.menu %}
           {% if item.sub %}
             <li class='nav-item dropdown'>
               <a class='nav-link dropdown-toggle' href='#' id='wax-{{ item.label | slugify }}-dropdown' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

@@ -14,7 +14,7 @@
       <div class='col'>
         <p class='footer-title'>Links</p>
         <p class='footer-links'>
-          {% for item in site.footer.links %}
+          {% for item in site.data.theme.footer.links %}
             <a href='{{ item.link | absolute_url }}'>
               {{ item.label }}
             </a>
@@ -22,7 +22,7 @@
           {% endfor %}
         </p>
         <p class='footer-logos'>
-          {% for item in site.footer.logos %}
+          {% for item in site.data.theme.footer.logos %}
           {% assign link = item.link | default: '#' %}
           <a href="{{ link | absolute_url }}" aria-label="Logo link to resource">
             <img src='{{ item.img | absolute_url }}' alt="logo"/>

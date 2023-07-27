@@ -1,0 +1,9 @@
+links:
+  - label: 'GitHub'
+    link: 'https://github.com/minicomp/wax'
+  - label: 'Credits'
+    link: '/about/credits/'
+  - label: 'Wiki'
+    link: 'https://minicomp.github.io/wiki/wax/'
+logos:
+  - img: '/assets/logo.png'
