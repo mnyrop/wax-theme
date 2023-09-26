@@ -1,31 +1,34 @@
-<dl class='metadata-block'>
-  {% for item in include.meta %}
-    {% if item.value contains 'page.' %}
-      {% assign key = item.value | remove: 'page.' %}
-      {% assign value = page[key] %}
-    {% else %}
-      {% assign value = item.value %}
-    {% endif %}
+{% assign item  = include.item | default: page %}
+{% assign collection  = include.collection | default: item.collection %}
+{% assign dictionary  = site.data.collections[collection].dictionary %}
+{% assign metadata    = include.item.metadata %}
 
-    {% comment %}
-    Only display non-empty values
-    {% endcomment %}
-    {% if value | strip != '' %}
-      {% if item.type == 'link' %}
-        {% if key == 'manifest' %}
-          {%- capture value -%}
-            <a href="{{ value | absolute_url }}" target="_blank" rel="noreferrer">{{ value | absolute_url }}</a>
-          {%- endcapture -%}
+<dl class='metadata-block'>
+  {% unless dictionary.label.hide %}
+  <dt>{{ dictionary.label.label | default: 'Label' }}</dt>
+  <dd>{{ item.label }}</dd>
+  {% endunless %}
+
+  {% for meta in metadata %}
+    {% assign key   = meta[0] %}
+    {% assign value = meta[1] %}
+    {% assign label = dictionary[key].label | default: meta[0] %}
+    {% unless value.size < 1 or dictionary[key].hide %}
+      <dt>{{ label }}</dt>
+      {% if value.first %}
+        <dd>{{ value | join: ', ' }}</dd>
+      {% else %}
+        {% if value contains 'http' %}
+        <dd><a href="{{ value }}">{{ value }}</a></dd>
         {% else %}
-          {%- capture value -%}
-            <a href="{{ value | absolute_url }}" target="_blank" rel="noreferrer">
-              {{ value | absolute_url | remove: 'https://' | remove: 'http://' | split: "/" | first }}
-            </a>
-          {%- endcapture -%}
+        <dd>{{ value }}</dd>
         {% endif %}
       {% endif %}
-        <dt>{{ item.label }}</dt>
-        <dd>{{ value | strip }}</dd>
-    {% endif %}
+    {% endunless %}
   {% endfor %}
+
+  {% unless item.iiif_manifest.size < 1 or dictionary.iiif_manifest.hide %}
+    <dt>{{ dictionary.iiif_manifest.label | default: 'IIIF Manifest' }}</dt>
+    <dd><a href="{{ item.iiif_manifest | absolute_url }}">{{ item.iiif_manifest | absolute_url }}</a></dd>
+  {% endunless %}
 </dl>
