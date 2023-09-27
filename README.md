@@ -1,3 +1,3 @@
-# mnyrop/wax_theme
+# mnyrop/wax-theme
 
 WiP
