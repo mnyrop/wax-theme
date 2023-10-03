@@ -6,7 +6,7 @@
     <time datetime='{{ 'now' | date: '%Y-%m-%d %H:%M' }}'></time>
     {% include header.html %}
 
-    {% if page.banner %}
+    {% if page.banner.image or page.banner.pid %}
       {% assign b = page.banner %}
       {% include parallax_image.html collection=b.collection pid=b.pid y=b.y height=b.height image=b.image clickable=b.clickable %}
     {% endif %}

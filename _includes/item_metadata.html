@@ -13,7 +13,7 @@
     {% assign key   = meta[0] %}
     {% assign value = meta[1] %}
     {% assign label = dictionary[key].label | default: meta[0] %}
-    {% unless value.size < 1 or dictionary[key].hide %}
+    {% unless value.size == 0 or dictionary[key].hide %}
       <dt>{{ label }}</dt>
       {% if value.first %}
         <dd>{{ value | join: ', ' }}</dd>
@@ -27,8 +27,10 @@
     {% endunless %}
   {% endfor %}
 
-  {% unless item.iiif_manifest.size < 1 or dictionary.iiif_manifest.hide %}
+  {% if item.iiif_manifest.size %}
+    {% unless dictionary.iiif_manifest.hide %}
     <dt>{{ dictionary.iiif_manifest.label | default: 'IIIF Manifest' }}</dt>
     <dd><a href="{{ item.iiif_manifest | absolute_url }}">{{ item.iiif_manifest | absolute_url }}</a></dd>
-  {% endunless %}
+    {% endunless %}
+  {% endif %}
 </dl>

@@ -9,9 +9,9 @@ layout: default
 <h3 alt="{{ page.label | escape }}" class='item-label'>{{ page.label }}</h3>
   <div class='item-view'>
     <span class='pagination-link' id='prevlink'></span>
-    {% if page.iiif_manifest.size > 0 %}
+    {% if page.iiif_manifest %}
       {% include osd_iiif_image_viewer.html manifest=page.iiif_manifest %}
-    {% elsif page.full_image.size > 0 %}
+    {% elsif page.full_image %}
       {% include simple_image_viewer.html full_image=page.full_image derivatives=page.derivatives.simple %}
     {% endif %}
     <span class='pagination-link' id='nextlink'></span>
